@@ -1,62 +1,54 @@
-Triển khai .NET Microservices lên Kubernetes và chuyển sang Azure Kubernetes Services (AKS), sử dụng Azure Container Registry (ACR) và tự động hóa triển khai với Azure DevOps và GitHub
+# Triển khai .NET Microservices với Kubernetes, AKS, ACR và Azure DevOps
 
-Tổng quan
-Chúng ta sẽ phát triển và triển khai 3 microservices cùng nhau:
+## 🌐 Tổng quan
 
-Shopping MVC Client Application
+Dự án này hướng dẫn cách phát triển và triển khai các **.NET Microservices** lên **Azure Kubernetes Services (AKS)**, sử dụng **Azure Container Registry (ACR)** và tự động hóa quy trình triển khai bằng **Azure DevOps** và **GitHub Actions**.
 
-Phát triển ứng dụng web ASP.NET MVC tên là Shopping.Client để tiêu thụ các API từ backend.
+Chúng ta sẽ xây dựng và triển khai **3 microservices**:
 
-Ban đầu xây dựng như một ứng dụng độc lập chứa dữ liệu riêng.
+### 🛒 1. Shopping MVC Client Application
+- Ứng dụng web ASP.NET MVC: `Shopping.Client`.
+- Ban đầu chạy độc lập với dữ liệu nội bộ.
+- Thêm hỗ trợ Docker với Dockerfile.
+- Đẩy Docker image lên Docker Hub.
+- Triển khai lên **Azure Web App for Containers** để thử nghiệm.
 
-Thêm hỗ trợ Docker bằng Dockerfile, đẩy Docker image lên Docker Hub.
+### 🧾 2. Shopping API Microservice
+- Microservice `Shopping.API` kết nối với MongoDB.
+- Cung cấp các API thực hiện CRUD cho dữ liệu sản phẩm.
+- Container hóa bằng Dockerfile.
+- Đẩy image lên **Azure Container Registry (ACR)**.
 
-Thử nghiệm triển khai lên Azure Web App for Container.
+### 🗄 3. MongoDB Microservice
+- Sử dụng MongoDB NoSQL để lưu trữ dữ liệu sản phẩm.
+- Dùng MongoDB Docker image từ Docker Hub.
+- Kết nối MongoDB với `Shopping.API`.
 
-Shopping API Application
+---
 
-Phát triển microservice Shopping.API sử dụng MongoDB.
+## 🧪 Quy trình triển khai
 
-Thực hiện CRUD trên dữ liệu sản phẩm và cung cấp API cho Shopping.Client.
+1. Tạo Docker images cho từng dịch vụ.
+2. Dùng **Docker Compose** để khởi tạo và test toàn bộ hệ thống cục bộ.
+3. Triển khai lên **local Kubernetes cluster**.
+4. Push Docker images lên **Azure Container Registry (ACR)**.
+5. Triển khai hệ thống lên **Azure Kubernetes Services (AKS)**.
+6. Cập nhật microservices với **zero-downtime deployments**.
 
-Container hóa ứng dụng API bằng Dockerfile và đẩy image lên Azure Container Registry (ACR).
+---
 
-MongoDB Microservice
+## 🔁 Tự động hóa CI/CD với Azure DevOps
 
-Dữ liệu sản phẩm được lưu trữ trong MongoDB (NoSQL).
+- Tạo **Azure Pipelines** riêng biệt cho từng microservice bằng YAML.
+- Khi push code lên GitHub:
+  - Pipeline tự động build Docker image.
+  - Push image lên **ACR**.
+  - Triển khai lên **AKS** với downtime bằng 0.
 
-Sử dụng MongoDB Docker image từ Docker Hub và kết nối với Shopping.API.
+---
 
-Sau bước này, ta có 3 microservices:
+## 🔗 Tài liệu và khóa học
 
-Shopping.Client
+🎓 [Khóa học Udemy có giảm giá – Từng bước phát triển và triển khai repo này](https://www.udemy.com/course/deploying-net-microservices-with-k8s-aks-and-azure-devops/?couponCode=APRI25)
 
-Shopping.API
-
-MongoDB
-
-Các bước thực hiện:
-
-Tạo Docker images
-
-Sử dụng Docker Compose để kết hợp các containers và kiểm thử
-
-Triển khai containers trên Kubernetes cục bộ
-
-Đẩy images lên ACR
-
-Chuyển triển khai lên Azure Kubernetes Services (AKS)
-
-Cập nhật microservices với zero-downtime deployments
-
-Tự động hóa triển khai với Azure DevOps và GitHub (CI/CD)
-
-Tạo các CI/CD pipelines sử dụng Azure Pipelines
-
-Khi code được đẩy lên GitHub, pipeline được kích hoạt:
-
-Build Docker images
-
-Push lên ACR
-
-Triển khai lên AKS với zero-downtime
+✍️ [Bài viết trên Medium – Triển khai .NET Microservices lên AKS và tự động hóa với Azure DevOps](https://mehmetozkaya.medium.com/deploying-net-microservices-to-azure-kubernetes-services-aks-and-automating-with-azure-devops-c50bdd51b702)
