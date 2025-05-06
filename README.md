@@ -4,6 +4,9 @@
 
 Dự án này hướng dẫn cách phát triển và triển khai các **.NET Microservices** lên **Azure Kubernetes Services (AKS)**, sử dụng **Azure Container Registry (ACR)** và tự động hóa quy trình triển khai bằng **Azure DevOps** và **GitHub Actions**.
 
+Sơ đồ kiến trúc: https://github.com/TanPham2808/Devops-Microservices/blob/main/So%20do%20kien%20truc.png
+
+
 Chúng ta sẽ xây dựng và triển khai **3 microservices**:
 
 ### 🛒 1. Shopping MVC Client Application
