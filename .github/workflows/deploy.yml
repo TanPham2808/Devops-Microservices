@@ -1,0 +1,22 @@
+name: Deploy Docker Image to Azure Web App
+
+on:
+  push:
+    branches:
+      - main # hoặc branch bạn đang dùng
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Azure Web App using Docker image
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: shoppingappweb                     # 👉 Tên Azure App Service
+          slot-name: Production
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          images: tanpham28/shoppingclient:latest  # 👉 Docker image bạn muốn deploy
