@@ -31,7 +31,7 @@ jobs:
       with:
         push: true
         tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_9dcace64751942b29eaa9c0490dd3fc6 }}/tanpham28/shoppingclient:${{ github.sha }}
-        file: ./Dockerfile
+        file: Shopping/Shopping.Client/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
