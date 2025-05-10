@@ -8,8 +8,7 @@ ENV ASPNETCORE_URLS=http://+:80
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-#COPY ["Shopping.Client.csproj", "./"]
-COPY ["Shopping.Client/Shopping.Client.csproj", "Shopping.Client/"]
+COPY ["Shopping.Client.csproj", "./"]
 RUN dotnet restore "Shopping.Client.csproj"
 
 # Copy the source code and build
