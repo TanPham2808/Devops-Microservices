@@ -16,8 +16,8 @@ RUN dotnet restore "Shopping.Client.csproj"
 
 # Copy the entire source code
 COPY . .
-WORKDIR "/src/Shopping.Client"
-RUN dotnet build "./Shopping.Client.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src"
+RUN dotnet build "Shopping.Client.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
