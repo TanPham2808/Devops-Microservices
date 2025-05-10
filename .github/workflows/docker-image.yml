@@ -1,0 +1,16 @@
+name: Docker Image CI
+
+on:
+  [workflow_dispatch]
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+    - uses: actions/checkout@v4
+    - name: build image
+      run: docker build ./Shopping.Client -t tanpham28/shoppingclient:latest
+    - name: push image to docker hub
+      run: |
+          docker push tanpham28/shoppingclient:latest
