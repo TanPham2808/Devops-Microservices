@@ -11,16 +11,18 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Shopping.Client/Shopping.Client.csproj", "Shopping.Client/"]
-RUN dotnet restore "./Shopping.Client/Shopping.Client.csproj"
+COPY ["Shopping.Client.csproj", "./"]
+RUN dotnet restore "Shopping.Client.csproj"
+
+# Copy the entire source code
 COPY . .
-WORKDIR "/src/Shopping.Client"
-RUN dotnet build "./Shopping.Client.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src"
+RUN dotnet build "Shopping.Client.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Shopping.Client.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Shopping.Client.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
