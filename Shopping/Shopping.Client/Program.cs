@@ -1,7 +1,14 @@
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Hoặc đăng ký với tên
+builder.Services.AddHttpClient("ShoppingAPIClient", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5000");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 
 var app = builder.Build();
 
