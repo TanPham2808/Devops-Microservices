@@ -6,7 +6,11 @@ builder.Services.AddControllersWithViews();
 // Hoặc đăng ký với tên
 builder.Services.AddHttpClient("ShoppingAPIClient", client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5000");
+    //client.BaseAddress = new Uri("http://localhost:5000"); // Môi trường localhost của API
+    
+    var configuration = builder.Configuration;
+    var shoppingApiUrl = configuration["ShoppingAPIUrl"];
+    client.BaseAddress = new Uri(shoppingApiUrl ?? "");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
@@ -27,6 +31,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();

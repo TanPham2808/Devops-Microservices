@@ -1,13 +1,22 @@
-services:
+﻿services:
   shopping.api:
+    container_name: shoppingapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://shoppingdb:27017" # Ghi đè chuỗi kết nối
+    depends_on:
+      - shopping.db
     ports:
       - "8000:8080"
 
   shopping.client:
+    container_name: shopping.client
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "ShoppingAPIUrl=http://shoppingapi:8080" #shoppingapi là tên của container shopping.api
+    depends_on:
+      - shopping.db
+      - shopping.api
     ports:
       - "8001:8080"
 
